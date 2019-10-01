@@ -5,13 +5,9 @@ import store from './store.js';
 Will render the main page by calling to the api server to get the list of bookmarks
 and render the page with the list of bookmarks*/
 
-const render = function() {
-  $('.js-listOfBookmarks').html('');
-  api.getAllBookmarks()
-    .then(res => res.json())
-    .then(data=> {
-      data.forEach(item => {
-        $('.js-listOfBookmarks').append(`
+
+const createBookmarkListHTML = function (item){
+  $('.js-listOfBookmarks').append(`
   <li>
   <div class="titleAndRating">
   Title:  <span class= "js-titleSpan">${item.title}</span>
@@ -30,11 +26,43 @@ const render = function() {
     </form>
   </div>
 </li>
-  `);  
-      });
-    });
-  console.log('render worked');
+  `); 
 };
+
+
+
+const render = function() {
+  $('.js-listOfBookmarks').html('');
+  api.getAllBookmarks()
+    .then(res => res.json())
+    .then(data=> {
+      data.forEach(item => createBookmarkListHTML(item));
+    });
+};
+//         $('.js-listOfBookmarks').append(`
+//   <li>
+//   <div class="titleAndRating">
+//   Title:  <span class= "js-titleSpan">${item.title}</span>
+//   Rating:  <span class= "js-ratingSpan">${item.rating}</span>
+//   </div>
+//   <div class= "js-expandContent hidden" aria-live='polite'>
+//     <form action= "${item.url}">
+//       <label for= "visitSite" class="hidden">Visit Site</label>
+//       <input type="submit" value="Visit Site" id= "visitSite"/>
+//     </form>
+//     <p>
+//       ${item.desc}
+//     </p>
+//     <form class= "js-DeleteButton">
+//       <button type= "submit">Delete Bookmark?</button>
+//     </form>
+//   </div>
+// </li>
+//   `);  
+//       });
+//     });
+//   console.log('render worked');
+// };
 
 /*Will listen for a submit event on the new bookmark button. When clicked it will
 push the form into the main html section element. This way you can still see your other 
@@ -119,11 +147,12 @@ const handleCreateBookmarkSubmit = function (){
     event.preventDefault();
     const formElement = $('.js-addNewBookmarkForm')[0];
     const newData = serializeJson(formElement);
+    $('.js-displayCreateBookmarkForm').html('');
     api.postNewBookmarkToServer(newData)
       .then(res => res.json())
       .then(res => {
         store.addItems(res);
-        render();}
+        createBookmarkListHTML(res);}
       );
     console.log('handleCreateBookmarkSubmit worked');
   });
