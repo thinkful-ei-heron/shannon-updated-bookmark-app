@@ -66,14 +66,21 @@ It will also call a function that updates the local store with the value of the 
 */
 
 const handleCreateBookmarkSubmit = function (){
-  console.log('handleCreateBookmarkSubmit worked');
+  $('.js-displayCreateBookmarkForm').on('submit', '.js-addNewBookmarkForm', function () {
+    event.preventDefault();
+    console.log('handleCreateBookmarkSubmit worked');
+  });
+  
 };
 
 /* this will listen for a submit on the cancel button. It will use jquery:
 section.html(''); to remove the form from the page and return to the previous view. */
 
 const handleCancelButtonSubmit = function (){
-  console.log('handleCancelButtonSubmit worked');
+  $('.js-displayCreateBookmarkForm').on('reset', '.js-addNewBookmarkForm', function (){
+    $('.js-displayCreateBookmarkForm').html('');
+    console.log('handleCancelButtonSubmit worked');
+  });
 };
 
 
