@@ -1,0 +1,45 @@
+<h1>My Bookmarks</h1>
+<form class="js-bookmarkTools">
+  <button type= submit>Make New Bookmark</button>
+  <select>
+    <option selected disabled>Filter By:</option>
+    <option value=5>5 stars</option>
+    <option value=4>4 stars</option> 
+    <option value=3>3 stars</option> 
+    <option value=2>2 stars</option> 
+    <option value=1>1 stars</option> 
+  </select>
+</form>
+<ul class= 'js-listOfBookmarks'>
+  <li> 
+    Title:  <span class= "js-titleSpan">Google</span>
+    Rating:  <span class= "js-ratingSpan">4 Stars</span>
+    <div class= "js-expandContent">
+      <form action= "http://google.com">
+        <label for= "visitSite" class="hidden">Visit Site</label>
+        <input type="submit" value="Visit Site" id= "visitSite"/>
+      </form>
+      <p>
+        This is the description of Google.com. You can search for anything you want and it is awesome.
+      </p>
+      <form class= "js-DeleteButton">
+        <button type= "submit">Delete Bookmark?</button>
+      </form>
+    </div>
+  </li>
+  <li>
+    Title:  <span class= "js-titleSpan">Title Goes Here</span>
+    Rating:  <span class= "js-ratingSpan">Rating Goes Here</span>
+    <div class = "hidden">Expanded Content Can be pushed in here</div>
+  </li>
+  <li>
+    Title:  <span class= "js-titleSpan">Title Goes Here</span>
+    Rating:  <span class= "js-ratingSpan">Rating Goes Here</span>
+    <div class = "hidden">Expanded Content Can be pushed in here</div>
+  </li>
+  <li>
+    Title:  <span class= "js-titleSpan">Title Goes Here</span>
+    Rating:  <span class= "js-ratingSpan">Rating Goes Here</span>
+    <div class = "hidden">Expanded Content Can be pushed in here</div>
+  </li>
+</ul>
