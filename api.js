@@ -14,7 +14,14 @@ const postNewBookmarkToServer = function (data) {
   });
 };
 
+const deleteBookmarkFromServer = function (id){
+  return fetch(`${base_url}/${id}`, {
+    method: 'DELETE',
+  });
+};
+
 export default {
   getAllBookmarks,
   postNewBookmarkToServer,
+  deleteBookmarkFromServer,
 };

@@ -1,14 +1,12 @@
 import api from './api.js';
 import store from './store.js';
 
-/*
-Will render the main page by calling to the api server to get the list of bookmarks
-and render the page with the list of bookmarks*/
+
 
 
 const createBookmarkListHTML = function (item){
   $('.js-listOfBookmarks').append(`
-  <li>
+  <li id= "${item.id}">
   <div class="titleAndRating">
   Title:  <span class= "js-titleSpan">${item.title}</span>
   Rating:  <span class= "js-ratingSpan">${item.rating}</span>
@@ -29,6 +27,13 @@ const createBookmarkListHTML = function (item){
   `); 
 };
 
+/*
+Will render the main page by calling to the api server to get the list of bookmarks
+and render the page with the list of bookmarks*/
+
+const initializeStoreBookmarkList = function (data){
+  Object.assign(store.allBookmarks, data); 
+};
 
 
 const render = function() {
@@ -37,32 +42,9 @@ const render = function() {
     .then(res => res.json())
     .then(data=> {
       data.forEach(item => createBookmarkListHTML(item));
+      initializeStoreBookmarkList(data);
     });
 };
-//         $('.js-listOfBookmarks').append(`
-//   <li>
-//   <div class="titleAndRating">
-//   Title:  <span class= "js-titleSpan">${item.title}</span>
-//   Rating:  <span class= "js-ratingSpan">${item.rating}</span>
-//   </div>
-//   <div class= "js-expandContent hidden" aria-live='polite'>
-//     <form action= "${item.url}">
-//       <label for= "visitSite" class="hidden">Visit Site</label>
-//       <input type="submit" value="Visit Site" id= "visitSite"/>
-//     </form>
-//     <p>
-//       ${item.desc}
-//     </p>
-//     <form class= "js-DeleteButton">
-//       <button type= "submit">Delete Bookmark?</button>
-//     </form>
-//   </div>
-// </li>
-//   `);  
-//       });
-//     });
-//   console.log('render worked');
-// };
 
 /*Will listen for a submit event on the new bookmark button. When clicked it will
 push the form into the main html section element. This way you can still see your other 
@@ -125,17 +107,6 @@ function serializeJson(form) {
   return JSON.stringify(obj);
 }
 
-// $('#contactForm').submit(event => {
-//   event.preventDefault();
-//   // These two lines are THE SAME
-//   //let formElement = document.querySelector("#contactForm");
-//   let formElement = $('#contactForm')[0];
-//   // the [0] here selects the native element
-//   console.log( serializeJson(formElement) );
-// });
-
-
-
 /* Will listen for a submit in the create new Bookmark form. 
 It will replace the section.html('') so that the form disappears.
 It will take the data and make a post call to the API to store the data to the server.
@@ -168,7 +139,6 @@ const handleCancelButtonSubmit = function (){
   });
 };
 
-
 /* This will listen for a click on the li element that contains the title and rating of the bookmark.
 when clicked it will remove the .hidden class from the element therefore expanding the view allowing the user
 to see the description and the link to the sit. When clicked again it will toggle the hidden class back on
@@ -185,8 +155,15 @@ const handleClickToExpandListElement= function (){
 to delete the bookmark from the server. It will then do the same for the local store so that the item is removed from the list
 */
 
-const handleDeleteBookmartSubmit = function(){
-  console.log('handleDeleteBookmarkSubmit worked');
+const handleDeleteBookmarkSubmit = function(){
+  $('.js-listOfBookmarks').on('submit', '.js-DeleteButton', function(event){
+    event.preventDefault();
+    const currentBookmarkId = $(event.currentTarget).closest('li').attr('id');
+    api.deleteBookmarkFromServer(currentBookmarkId)
+      .then(() => {
+        store.removeItems(currentBookmarkId);
+        render();
+      });});
 };
 
 
@@ -196,7 +173,7 @@ const bindEventListeners = function () {
   handleCreateBookmarkSubmit();
   handleCancelButtonSubmit();
   handleClickToExpandListElement();
-  handleDeleteBookmartSubmit();
+  handleDeleteBookmarkSubmit();
 };
 
 export default {
