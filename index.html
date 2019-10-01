@@ -10,36 +10,22 @@
 </head>
 <body>
   <main>
-    <h1>My Bookmarks</h1>
-    <form class= js-addNewBookmarkForm>
-      <fieldset class= "bookmarkDetails">
-        <div>
-          <label for="addNewBookmarkUrl">Add New Bookmark:</label>
-          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "example: http://www.sample.com" required>
-        </div>
-        <div>
-          <label for= "addBookmarkTitle">Name your Bookmark:</label>
-          <input type= "text" id= "addBookmarkTitle" name="title" placeholder= "Site Name" required>
-        </div>
-        <div>
-          <label for= "addBookmarkRating">Rate your Bookmark:</label>
-          <select id= "addBookmarkRating" name="rating" required>
-            <option selected disabled>How Many Stars?</option>
-            <option value=5>5 stars</option>
-            <option value=4>4 stars</option> 
-            <option value=3>3 stars</option> 
-            <option value=2>2 stars</option> 
-            <option value=1>1 star</option> 
-          </select>
-        </div>
-        <div>
-          <label for="addBookmarkDescription">Description:</label>
-          <textarea id="addBookmarkDescription" name="desc" placeholder= "Add your bookmark description here..." required></textarea>
-        </div>
-        <button type=submit> Create </button>
-        <button type=reset>Cancel</button>
-    </fieldset>
-    </form>
+      <h1>My Bookmarks</h1>
+      <form class="js-bookmarkTools">
+        <button type= submit>Make New Bookmark</button>
+        <select>
+          <option selected disabled>Filter By:</option>
+          <option value=5>5 stars</option>
+          <option value=4>4 stars</option> 
+          <option value=3>3 stars</option> 
+          <option value=2>2 stars</option> 
+          <option value=1>1 star</option> 
+        </select>
+      </form>   
+      <section class="js-displayCreateBookmarkForm">
+      </section>
+      <ul class= 'js-listOfBookmarks'>
+      </ul>
   </main>  
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type= "text/javascript" src= "index.js"></script>
