@@ -10,10 +10,23 @@ main {
   border-radius: 5px;
 }
 
+ul {
+  width: 90%;
+  margin-left:auto;
+  margin-right:auto;
+  padding: 0;
+  list-style-type: none;
+}
+
 li {
   border: 1px solid black;
+  
 }
 
 .hidden {
   display: none;
+}
+
+.titleAndRating:hover {
+  background-color: lightgrey;
 }

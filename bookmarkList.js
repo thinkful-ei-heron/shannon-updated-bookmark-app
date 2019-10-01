@@ -2,6 +2,27 @@
 and render the page with the list of bookmarks*/
 
 const render = function() {
+  //api call, server data, .for Each ==>
+  $('.js-listOfBookmarks').append(`
+  <li>
+  <div class="titleAndRating">
+  Title:  <span class= "js-titleSpan">Google</span>
+  Rating:  <span class= "js-ratingSpan">4 Stars</span>
+  </div>
+  <div class= "js-expandContent hidden">
+    <form action= "http://google.com">
+      <label for= "visitSite" class="hidden">Visit Site</label>
+      <input type="submit" value="Visit Site" id= "visitSite"/>
+    </form>
+    <p>
+      This is the description of Google.com. You can search for anything you want and it is awesome.
+    </p>
+    <form class= "js-DeleteButton">
+      <button type= "submit">Delete Bookmark?</button>
+    </form>
+  </div>
+</li>
+  `);
   console.log('render worked');
 };
 
@@ -90,7 +111,10 @@ to see the description and the link to the sit. When clicked again it will toggl
 to allow it to shrink back down. */
 
 const handleClickToExpandListElement= function (){
-  console.log('handleClickToExpandListElement worked');
+  $('.js-listOfBookmarks').on('click', '.titleAndRating', function(event){
+    $(event.currentTarget).closest('li').children('.js-expandContent').toggleClass('hidden');
+    console.log('handleClickToExpandListElement worked');
+  });
 };
 
 /*This will listen for a submit on the delete button. When clicked it will make a call to the API
