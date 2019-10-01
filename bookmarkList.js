@@ -10,7 +10,41 @@ push the form into the main html section element. This way you can still see you
 bookmarks when creating the new bookmark. */
 
 const handleNewBookmarkButtonSubmit = function (){
-  console.log('handleNewBookmarkButtonSubmit worked');
+  $('.js-bookmarkTools').submit(function() {
+    event.preventDefault();
+    $('.js-displayCreateBookmarkForm').html(`
+    <form class= js-addNewBookmarkForm>
+      <fieldset class= "bookmarkDetails">
+        <div>
+          <label for="addNewBookmarkUrl">Add New Bookmark:</label>
+          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "example: http://www.sample.com" required>
+        </div>
+        <div>
+          <label for= "addBookmarkTitle">Name your Bookmark:</label>
+          <input type= "text" id= "addBookmarkTitle" name="title" placeholder= "Site Name" required>
+        </div>
+        <div>
+          <label for= "addBookmarkRating">Rate your Bookmark:</label>
+          <select id= "addBookmarkRating" name="rating" required>
+            <option selected disabled>How Many Stars?</option>
+            <option value=5>5 stars</option>
+            <option value=4>4 stars</option> 
+            <option value=3>3 stars</option> 
+            <option value=2>2 stars</option> 
+            <option value=1>1 star</option> 
+          </select>
+        </div>
+        <div>
+          <label for="addBookmarkDescription">Description:</label>
+          <textarea id="addBookmarkDescription" name="desc" placeholder= "Add your bookmark description here..." required></textarea>
+        </div>
+        <button type=submit> Create </button>
+        <button type=reset>Cancel</button>
+    </fieldset>
+    </form>
+    `);
+    console.log('handleNewBookmarkButtonSubmit worked');
+  });
 };
 
 /* will listen for a selection being made in the filter list.
@@ -18,7 +52,11 @@ It will assess the value of the user's selection and will only display the bookm
 from the server that have a rating higher than or equal to the value selected. */
 
 const handleFilterBySelectionMade = function (){
-  console.log('handleFilterBySelectionMade worked');
+  $('.filterByRating').change(function(){
+    const filterByValue = $(this).val();
+    console.log(filterByValue);
+    console.log('handleFilterBySelectionMade worked');
+  });
 };
 
 /* Will listen for a submit in the create new Bookmark form. 
