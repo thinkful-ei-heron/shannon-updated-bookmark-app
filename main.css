@@ -1,0 +1,15 @@
+body {
+  background-color: #919F83;
+}
+
+main {
+  background-color: white;
+}
+
+li {
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
