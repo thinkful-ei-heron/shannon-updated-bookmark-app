@@ -1,28 +1,38 @@
-/* Will render the main page by calling to the api server to get the list of bookmarks
+import api from './api.js';
+import store from './store.js';
+
+/*
+Will render the main page by calling to the api server to get the list of bookmarks
 and render the page with the list of bookmarks*/
 
 const render = function() {
-  //api call, server data, .for Each ==>
-  $('.js-listOfBookmarks').append(`
+  $('.js-listOfBookmarks').html('');
+  api.getAllBookmarks()
+    .then(res => res.json())
+    .then(data=> {
+      data.forEach(item => {
+        $('.js-listOfBookmarks').append(`
   <li>
   <div class="titleAndRating">
-  Title:  <span class= "js-titleSpan">Google</span>
-  Rating:  <span class= "js-ratingSpan">4 Stars</span>
+  Title:  <span class= "js-titleSpan">${item.title}</span>
+  Rating:  <span class= "js-ratingSpan">${item.rating}</span>
   </div>
-  <div class= "js-expandContent hidden">
-    <form action= "http://google.com">
+  <div class= "js-expandContent hidden" aria-live='polite'>
+    <form action= "${item.url}">
       <label for= "visitSite" class="hidden">Visit Site</label>
       <input type="submit" value="Visit Site" id= "visitSite"/>
     </form>
     <p>
-      This is the description of Google.com. You can search for anything you want and it is awesome.
+      ${item.desc}
     </p>
     <form class= "js-DeleteButton">
       <button type= "submit">Delete Bookmark?</button>
     </form>
   </div>
 </li>
-  `);
+  `);  
+      });
+    });
   console.log('render worked');
 };
 
@@ -80,6 +90,24 @@ const handleFilterBySelectionMade = function (){
   });
 };
 
+function serializeJson(form) {
+  const formData = new FormData(form);
+  const obj = {};
+  formData.forEach((val, name) => obj[name] = val);
+  return JSON.stringify(obj);
+}
+
+// $('#contactForm').submit(event => {
+//   event.preventDefault();
+//   // These two lines are THE SAME
+//   //let formElement = document.querySelector("#contactForm");
+//   let formElement = $('#contactForm')[0];
+//   // the [0] here selects the native element
+//   console.log( serializeJson(formElement) );
+// });
+
+
+
 /* Will listen for a submit in the create new Bookmark form. 
 It will replace the section.html('') so that the form disappears.
 It will take the data and make a post call to the API to store the data to the server.
@@ -89,9 +117,16 @@ It will also call a function that updates the local store with the value of the 
 const handleCreateBookmarkSubmit = function (){
   $('.js-displayCreateBookmarkForm').on('submit', '.js-addNewBookmarkForm', function () {
     event.preventDefault();
+    const formElement = $('.js-addNewBookmarkForm')[0];
+    const newData = serializeJson(formElement);
+    api.postNewBookmarkToServer(newData)
+      .then(res => res.json())
+      .then(res => {
+        store.addItems(res);
+        render();}
+      );
     console.log('handleCreateBookmarkSubmit worked');
   });
-  
 };
 
 /* this will listen for a submit on the cancel button. It will use jquery:
