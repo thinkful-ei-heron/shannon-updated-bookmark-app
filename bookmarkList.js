@@ -60,7 +60,7 @@ const initializeStoreBookmarkList = function (data) {
 
 const render = function () {
   renderErrorMessage();
-
+  store.DATA.filter = 0;
   $('.js-listOfBookmarks').html('');
   api.getAllBookmarks()
     .then(data => {
@@ -118,19 +118,26 @@ const handleNewBookmarkButtonSubmit = function () {
 It will assess the value of the user's selection and will only display the bookmarks 
 from the server that have a rating higher than or equal to the value selected. */
 
+const filterBookmarkList = function() {
+  const filterRatingsValue = store.DATA.filter;
+  $('.js-listOfBookmarks').html('');
+  api.getAllBookmarks()
+    .then(res => {
+      const filteredItems = res.filter(item => item.rating >= filterRatingsValue);
+      filteredItems.forEach(item => createBookmarkListHTML(item));
+    })
+    .catch(error => {
+      store.defineErrorMessage(error);
+      renderErrorMessage();
+    });
+};
+
+
 const handleFilterBySelectionMade = function () {
   $('.filterByRating').change(function () {
     const filterByValue = $(this).val();
-    $('.js-listOfBookmarks').html('');
-    api.getAllBookmarks()
-      .then(res => {
-        const filteredItems = res.filter(item => item.rating >= filterByValue);
-        filteredItems.forEach(item => createBookmarkListHTML(item));
-      })
-      .catch(error => {
-        store.defineErrorMessage(error);
-        renderErrorMessage();
-      });
+    store.DATA.filter = filterByValue;
+    filterBookmarkList();
   });
 };
 
@@ -153,10 +160,13 @@ const handleCreateBookmarkSubmit = function () {
     const formElement = $('.js-addNewBookmarkForm')[0];
     const newData = serializeJson(formElement);
     $('.js-displayCreateBookmarkForm').html('');
+    //$('.filterByRating').prop('selectedIndex',0);
+    //store.DATA.filter = 0;
     api.postNewBookmarkToServer(newData)
       .then(res => {
         store.addItems(res);
-        createBookmarkListHTML(res);
+        createBookmarkListHTML(res); 
+        filterBookmarkList();
       }) .catch(error => {
         store.defineErrorMessage(error);
         renderErrorMessage();
