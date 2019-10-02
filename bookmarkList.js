@@ -84,7 +84,6 @@ const handleNewBookmarkButtonSubmit = function (){
     </fieldset>
     </form>
     `);
-    console.log('handleNewBookmarkButtonSubmit worked');
   });
 };
 
@@ -95,6 +94,13 @@ from the server that have a rating higher than or equal to the value selected. *
 const handleFilterBySelectionMade = function (){
   $('.filterByRating').change(function(){
     const filterByValue = $(this).val();
+    $('.js-listOfBookmarks').html('');
+    api.getAllBookmarks()
+      .then(res => res.json())
+      .then(res => {
+        const filteredItems = res.filter(item => item.rating >= filterByValue);
+        filteredItems.forEach(item => createBookmarkListHTML(item));
+      });
     console.log(filterByValue);
     console.log('handleFilterBySelectionMade worked');
   });
