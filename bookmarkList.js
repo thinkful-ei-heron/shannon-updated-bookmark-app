@@ -29,6 +29,8 @@ const closeErrorMessage = function () {
 const createBookmarkListHTML = function (item) {
   $('.js-listOfBookmarks').append(`
   <li id= "${item.id}">
+  <form class= "expandElementButton">
+  <button type="submit" class="titleAndRatingButton" aria-expanded="false"> 
   <div class="titleAndRating">
   <div class= "title"> 
   Title:<span class= "js-titleSpan"> ${item.title}</span>
@@ -36,6 +38,9 @@ const createBookmarkListHTML = function (item) {
   <div class = "rating">
   Rating:<span class= "js-ratingSpan">${item.rating} Stars</span>
   </div>
+  </button>
+  </form>
+  
   </div>
   <div class= "js-expandContent hidden" aria-live='polite'>
     <form action= "${item.url}" target="_blank">
@@ -199,7 +204,8 @@ to see the description and the link to the sit. When clicked again it will toggl
 to allow it to shrink back down. */
 
 const handleClickToExpandListElement = function () {
-  $('.js-listOfBookmarks').on('click', '.titleAndRating', function (event) {
+  $('.js-listOfBookmarks').on('submit', '.expandElementButton', function (event) {
+    event.preventDefault();
     $(event.currentTarget).closest('li').children('.js-expandContent').toggleClass('hidden');
   });
 };

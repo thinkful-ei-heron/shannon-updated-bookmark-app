@@ -60,6 +60,13 @@ h1 {
   background-color:lightgrey;
 }
 
+.titleAndRatingButton {
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
 ul {
   width: 90%;
   margin-left:auto;
