@@ -1,4 +1,4 @@
-Link to Live Page: 
+Link to Live Page: https://thinkful-ei-heron.github.io/Shannon-bookmark-app/
 
 The following Bookmark App was created by Shannon Lichtenwalter.
 

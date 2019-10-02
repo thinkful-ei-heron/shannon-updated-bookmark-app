@@ -99,7 +99,7 @@ const displayFormFunction = function () {
           <label for="addNewBookmarkUrl">Bookmark URL:</label>
         </div>
         <div>
-          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "http://www.example.com" required>
+          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "https://www.example.com" required>
         </div>
         <div>
           <label for= "addBookmarkTitle">Site Name:</label>
