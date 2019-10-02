@@ -65,6 +65,7 @@ h1 {
   background-color: transparent;
   padding: 0;
   border: none;
+  text-align: left;
 }
 
 ul {
@@ -144,14 +145,12 @@ span {
   width: 90%;
 }
 
-.js-addNewBookmarkForm{
-  
-}
 .bookmarkDetails{
   border: 1px solid lightgrey;
   border-radius: 5px;
   text-align: center;
 }
+
 
 textarea {
   width: 80%;
