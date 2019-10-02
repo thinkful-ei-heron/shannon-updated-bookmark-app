@@ -46,7 +46,7 @@ const createBookmarkListHTML = function (item) {
         </div>
       </button>
     </form>
-    <div class= "js-expandContent hidden" aria-live='polite'>
+    <div class= "js-expandContent ${item.expanded ? '' : 'hidden'}" aria-live='polite'>
       <form action= "${item.url}" target="_blank">
         <label for= "visitSite" class="hidden">Visit Site</label>
         <input class= "visitSiteButton" type="submit" value="Visit Site" id= "visitSite"/>
@@ -68,7 +68,9 @@ for each bookmark element for the page.
 const initializeStoreBookmarkList = function () {
   api.getAllBookmarks()
     .then(data => Object.assign(store.DATA.allBookmarks, data))
-    .then(() => store.DATA.allBookmarks.forEach(item => createBookmarkListHTML(item)))
+    .then(() => store.DATA.allBookmarks.forEach(item => {
+      item.expanded = false;
+      createBookmarkListHTML(item);}))
     .catch(error => {
       store.defineErrorMessage(error);
       renderErrorMessage();
@@ -209,15 +211,27 @@ const handleCancelButtonSubmit = function () {
   });
 };
 
+/* will return the given object for a given id */
+
+const getElementById = function (id) {
+  return store.DATA.allBookmarks.find(item => item.id === id);
+};
+
+/* will change the store value of expanded */
+const toggleExpand = function (item) {
+  item.expanded = !item.expanded;
+  filterBookmarkList();
+};
 /* This will listen for a submit on the title and rating button.
-when clicked it will remove the .hidden class from the element therefore expanding the view allowing the user
-to see the description and the link to the site. When clicked again it will toggle the hidden class back on
-to allow it to shrink back down. */
+when clicked it will change the value of the property expanded on the bookmark item
+by calling toggleExpand. */
 
 const handleClickToExpandListElement = function () {
   $('.js-listOfBookmarks').on('submit', '.expandElementButton', function (event) {
     event.preventDefault();
-    $(event.currentTarget).closest('li').children('.js-expandContent').toggleClass('hidden');
+    const currentBookmarkId = $(event.currentTarget).closest('li').attr('id');
+    let item = getElementById(currentBookmarkId);
+    toggleExpand(item);
   });
 };
 

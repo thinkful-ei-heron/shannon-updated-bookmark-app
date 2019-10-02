@@ -5,6 +5,7 @@ const DATA = {
 };
 
 const addItems = function (data){
+  data.expanded = false;
   this.DATA.allBookmarks.push(data);
 };
 
