@@ -1,8 +1,6 @@
 const base_url = 'https://thinkful-list-api.herokuapp.com/shannon/bookmarks';
 
 
-
-
 const bookmarkApiFetch = function (...request) {
   let err;
   return fetch(...request)
@@ -26,13 +24,9 @@ const bookmarkApiFetch = function (...request) {
 };
 
 
-
-//this will be called by render to get all the data.
 const getAllBookmarks = function (){
   return bookmarkApiFetch(`${base_url}`);
 };
-
-
 
 
 const postNewBookmarkToServer = function (data) {

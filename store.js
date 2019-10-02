@@ -5,9 +5,7 @@ const DATA = {
 };
 
 const addItems = function (data){
-  //console.log(data);
   this.DATA.allBookmarks.push(data);
-  //console.log(allBookmarks);
 };
 
 const removeItems = function(itemId) {
