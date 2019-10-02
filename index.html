@@ -14,16 +14,19 @@
       <h1>My Bookmarks</h1>
       <form class="js-bookmarkTools">
         <button type= submit class="openCreateBookmarkForm">Make New Bookmark</button>
-        <label for= "filterByRatingMenu"></label>
+        <div class= "labelForFilter">
+          <label for= "filterByRatingMenu" class= "filterLabel">Filter:</label>
+        </div>
         <select class= "filterByRating" id="filterByRatingMenu"> 
-          <option selected disabled>Filter By:</option>
-          <option value=0>View All Bookmarks</option>
-          <option value=5>★★★★★</option>
-          <option value=4>★★★★☆</option> 
-          <option value=3>★★★☆☆</option> 
-          <option value=2>★★☆☆☆</option> 
-          <option value=1>★☆☆☆☆</option> 
-        </select>
+            <option disabled>Filter By:</option>
+            <option selected value=0>View All Bookmarks</option>
+            <option value=5>★★★★★</option>
+            <option value=4>★★★★☆</option> 
+            <option value=3>★★★☆☆</option> 
+            <option value=2>★★☆☆☆</option> 
+            <option value=1>★☆☆☆☆</option> 
+          </select>
+        
       </form> 
       <section class= "displayErrorMessage" aria-live= 'polite'>
       </section>  

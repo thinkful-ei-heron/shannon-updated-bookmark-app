@@ -2,6 +2,7 @@ const DATA = {
   allBookmarks: [],
   error: null,
   filter: 0,
+  adding: false,
 };
 
 const addItems = function (data){

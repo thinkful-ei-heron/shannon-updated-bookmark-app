@@ -88,13 +88,10 @@ const render = function () {
   initializeStoreBookmarkList();
 };
 
-/*Will listen for a submit event on the new bookmark button. When clicked it will
-push the form into the html section element which is above the list of bookmarks. This way you can still see your other 
-bookmarks when creating the new bookmark. */
+/* when store.DATA.adding is true this will display the form */
 
-const handleNewBookmarkButtonSubmit = function () {
-  $('.js-bookmarkTools').submit(function () {
-    event.preventDefault();
+const displayFormFunction = function () {
+  if(store.DATA.adding) {
     $('.js-displayCreateBookmarkForm').html(`
     <form class= js-addNewBookmarkForm>
       <fieldset class= "bookmarkDetails">
@@ -134,6 +131,20 @@ const handleNewBookmarkButtonSubmit = function () {
       </fieldset>
     </form>
     `);
+  } else {
+    $('.js-displayCreateBookmarkForm').html('');
+  }
+};
+
+/*Will listen for a submit event on the new bookmark button. When clicked it will
+call displayFormFunction to push the form into the html section element which is above the list of bookmarks. This way you can still see your other 
+bookmarks when creating the new bookmark. */
+
+const handleNewBookmarkButtonSubmit = function () {
+  $('.js-bookmarkTools').submit(function () {
+    event.preventDefault();
+    store.DATA.adding = true;
+    displayFormFunction();
   });
 };
 
@@ -197,7 +208,8 @@ const handleCreateBookmarkSubmit = function () {
     event.preventDefault();
     const formElement = $('.js-addNewBookmarkForm')[0];
     const newData = serializeJson(formElement);
-    $('.js-displayCreateBookmarkForm').html('');
+    store.DATA.adding = false;
+    displayFormFunction();
     makePostToApi(newData);
   });
 };
@@ -207,7 +219,8 @@ section.html(''); to remove the form from the page and return to the previous vi
 
 const handleCancelButtonSubmit = function () {
   $('.js-displayCreateBookmarkForm').on('reset', '.js-addNewBookmarkForm', function () {
-    $('.js-displayCreateBookmarkForm').html('');
+    store.DATA.adding = false;
+    displayFormFunction();
   });
 };
 

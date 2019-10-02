@@ -186,7 +186,10 @@ textarea {
   border:1px solid lightgrey;
 }
 
-
+.filterLabel {
+  font-size: 12px;
+  color: #04807E;
+}
 
 
 
@@ -234,6 +237,15 @@ textarea {
     font-size: 14px;
   }
   .openCreateBookmarkForm {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 570px) {
+  .labelForFilter {
+    display: inline-block;
+  }
+  .filterLabel {
     font-size: 14px;
   }
 }
