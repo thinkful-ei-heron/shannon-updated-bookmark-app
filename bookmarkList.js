@@ -48,6 +48,9 @@ const createBookmarkListHTML = function (item) {
 </li>
   `);
 };
+//    <form class="js-EditButton">
+//<button type= "submit"> Edit Bookmark?</button>
+//</form>
 
 /*
 Will render the main page by calling to the api server to get the list of bookmarks
@@ -216,6 +219,16 @@ const handleDeleteBookmarkSubmit = function () {
 };
 
 
+// const handleEditBookmarkSubmit = function (){
+//   $('.js-listOfBookmarks').on('submit', '.js-EditButton', function(event){
+//     event.preventDefault();
+//     $(event.currentTarget).parent('li').children('.js-titleSpan').html(`
+//     <input type=text>`);
+  
+//   })
+// }
+
+
 const bindEventListeners = function () {
   handleNewBookmarkButtonSubmit();
   handleFilterBySelectionMade();
@@ -223,6 +236,7 @@ const bindEventListeners = function () {
   handleCancelButtonSubmit();
   handleClickToExpandListElement();
   handleDeleteBookmarkSubmit();
+  //handleEditBookmarkSubmit();
   closeErrorMessage();
 };
 
