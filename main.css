@@ -2,13 +2,20 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+html {
+  height: 100%;
+}
 body {
-  background-color: #04807E;
+  /* background-color: #04807E; */
+  height: 100%;
+  background-position: center;
+  background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80');
+  background-size: cover;
 }
 
 main {
   background-color: white;
-  width: 60%;
+  width: 70%;
   margin-left:auto;
   margin-right:auto;
   margin-top: 30px;
@@ -24,6 +31,7 @@ main {
 h1 {
   font-size: 25px;
   text-align: center;
+  color: #04807E;
 }
 
 .js-bookmarkTools {
@@ -38,10 +46,18 @@ h1 {
   border: 1px solid lightgrey;
 }
 
+.filterByRating:hover {
+  background-color:lightgrey;
+}
+
 .openCreateBookmarkForm{
   background-color: transparent;
   border: 1px solid lightgrey;
   border-radius: 5px;
+}
+
+.openCreateBookmarkForm:hover {
+  background-color:lightgrey;
 }
 
 ul {
@@ -53,8 +69,60 @@ ul {
 }
 
 li {
-  border: 1px solid black;
-  
+  border: 1px solid lightgrey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.titleAndRating {
+  padding:10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+span {
+  color: #04807E;
+  display: block;
+}
+
+.js-expandContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.visitSiteButton{
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+  width: 120px;
+}
+
+.visitSiteButton:hover {
+  background-color: lightgrey;
+}
+
+.js-expandContent p {
+  color: #04807E;
+  font-size: 12px;
+  text-align: center;
+}
+
+.deleteBookmarkButton {
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+  width: 120px;
+}
+
+.deleteBookmarkButton:hover {
+  background-color: lightgrey;
 }
 
 .hidden {
@@ -64,6 +132,57 @@ li {
 .titleAndRating:hover {
   background-color: lightgrey;
 }
+
+.js-displayCreateBookmarkForm {
+  width: 90%;
+}
+
+.js-addNewBookmarkForm{
+  
+}
+.bookmarkDetails{
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  text-align: center;
+}
+
+textarea {
+  width: 80%;
+  border: 1px solid lightgrey;
+  text-align: center;
+}
+
+.bookmarkDetails button {
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.bookmarkDetails button:hover {
+  background-color: lightgrey;
+}
+
+
+.bookmarkDetails label {
+  font-size: 14px;
+}
+
+.bookmarkDetails input {
+  font-size: 10px;
+  width: 80%;
+  text-align: center;
+}
+
+#addBookmarkRating {
+  color: grey;
+  background-color:transparent;
+  border:1px solid lightgrey;
+}
+
+
+
+
 
 .displayErrorMessage {
   text-align: center;
@@ -86,4 +205,35 @@ li {
 
 .errorMessage {
   font-weight: bold;
+}
+
+
+@media only screen and (min-width: 500px) {
+  .titleAndRating {
+    font-size: 16px;
+  }
+  .js-expandContent p {
+    font-size: 14px;
+  }
+  h1{
+    font-size: 30px;
+  }
+  .bookmarkDetails label  {
+    font-size: 18px;
+  }
+  .bookmarkDetails input {
+    font-size: 14px;
+  }
+  .filterByRating {
+    font-size: 14px;
+  }
+  .openCreateBookmarkForm {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  main {
+    width: 50%;
+  }
 }

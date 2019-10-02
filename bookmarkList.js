@@ -30,19 +30,23 @@ const createBookmarkListHTML = function (item) {
   $('.js-listOfBookmarks').append(`
   <li id= "${item.id}">
   <div class="titleAndRating">
-  Title:  <span class= "js-titleSpan">${item.title}</span>
-  Rating:  <span class= "js-ratingSpan">${item.rating}</span>
+  <div class= "title"> 
+  Title:<span class= "js-titleSpan"> ${item.title}</span>
+  </div>
+  <div class = "rating">
+  Rating:<span class= "js-ratingSpan">${item.rating} Stars</span>
+  </div>
   </div>
   <div class= "js-expandContent hidden" aria-live='polite'>
     <form action= "${item.url}" target="_blank">
       <label for= "visitSite" class="hidden">Visit Site</label>
-      <input type="submit" value="Visit Site" id= "visitSite"/>
+      <input class= "visitSiteButton" type="submit" value="Visit Site" id= "visitSite"/>
     </form>
     <p>
       ${item.desc}
     </p>
     <form class= "js-DeleteButton">
-      <button type= "submit">Delete Bookmark?</button>
+      <button type= "submit" class="deleteBookmarkButton">Delete Bookmark?</button>
     </form>
   </div>
 </li>
@@ -87,28 +91,35 @@ const handleNewBookmarkButtonSubmit = function () {
     <form class= js-addNewBookmarkForm>
       <fieldset class= "bookmarkDetails">
         <div>
-          <label for="addNewBookmarkUrl">Add New Bookmark:</label>
-          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "example: http://www.sample.com" required>
+          <label for="addNewBookmarkUrl">Bookmark URL:</label>
+          <div>
+          <input id= "addNewBookmarkUrl" type= url name="url" placeholder= "http://www.example.com" required>
+          </div>
+          </div>
+        <div>
+          <label for= "addBookmarkTitle">Site Name:</label>
+          <div>
+            <input type= "text" id= "addBookmarkTitle" name="title" placeholder= "Site Name" required>
+          </div>
         </div>
         <div>
-          <label for= "addBookmarkTitle">Name your Bookmark:</label>
-          <input type= "text" id= "addBookmarkTitle" name="title" placeholder= "Site Name" required>
-        </div>
-        <div>
-          <label for= "addBookmarkRating">Rate your Bookmark:</label>
+          <label for= "addBookmarkRating">Rating:</label>
+          <div>
           <select id= "addBookmarkRating" name="rating" required>
-            <option selected disabled>How Many Stars?</option>
-            <option value=5>5 stars</option>
-            <option value=4>4 stars</option> 
-            <option value=3>3 stars</option> 
-            <option value=2>2 stars</option> 
-            <option value=1>1 star</option> 
-          </select>
+            <option selected disabled>Stars</option>
+            <option value=5>★★★★★</option>
+            <option value=4>★★★★☆</option> 
+            <option value=3>★★★☆☆</option> 
+            <option value=2>★★☆☆☆</option> 
+            <option value=1>★☆☆☆☆</option> 
+          </select> 
+          </div>
         </div>
         <div>
           <label for="addBookmarkDescription">Description:</label>
-          <textarea id="addBookmarkDescription" name="desc" placeholder= "Add your bookmark description here..." required></textarea>
-        </div>
+          <div><textarea id="addBookmarkDescription" name="desc" placeholder= "Add your bookmark description here..." required></textarea>
+          </div>        
+          </div>
         <button type=submit> Create </button>
         <button type=reset>Cancel</button>
     </fieldset>
