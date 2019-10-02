@@ -13,13 +13,13 @@ const renderErrorMessage = function () {
   if (store.DATA.error) {
     const message = errorHtmlRender(store.DATA.error);
     $('.displayErrorMessage').html(message);
-  }else {
+  } else {
     $('.displayErrorMessage').html('');
   }
 };
 
-const closeErrorMessage = function (){
-  $('.displayErrorMessage').on('submit', '.exitErrorMessage', function (){
+const closeErrorMessage = function () {
+  $('.displayErrorMessage').on('submit', '.exitErrorMessage', function () {
     event.preventDefault();
     store.DATA.error = null;
     renderErrorMessage();
@@ -53,24 +53,24 @@ const createBookmarkListHTML = function (item) {
 Will render the main page by calling to the api server to get the list of bookmarks
 and render the page with the list of bookmarks*/
 
-const initializeStoreBookmarkList = function (data) {
-  Object.assign(store.DATA.allBookmarks, data);
-};
-
-
-const render = function () {
-  renderErrorMessage();
-  store.DATA.filter = 0;
-  $('.js-listOfBookmarks').html('');
+const initializeStoreBookmarkList = function () {
   api.getAllBookmarks()
     .then(data => {
-      data.forEach(item => createBookmarkListHTML(item));
-      initializeStoreBookmarkList(data);
+      Object.assign(store.DATA.allBookmarks, data);
     })
+    .then(() => store.DATA.allBookmarks.forEach(item => createBookmarkListHTML(item)))
     .catch(error => {
       store.defineErrorMessage(error);
       renderErrorMessage();
     });
+};
+
+
+const render = function () {
+  console.log(store.DATA.filter);
+  renderErrorMessage();
+  $('.js-listOfBookmarks').html('');
+  initializeStoreBookmarkList();
 };
 
 /*Will listen for a submit event on the new bookmark button. When clicked it will
@@ -118,18 +118,11 @@ const handleNewBookmarkButtonSubmit = function () {
 It will assess the value of the user's selection and will only display the bookmarks 
 from the server that have a rating higher than or equal to the value selected. */
 
-const filterBookmarkList = function() {
+const filterBookmarkList = function () {
   const filterRatingsValue = store.DATA.filter;
+  const filteredItems = store.DATA.allBookmarks.filter(item => item.rating >= filterRatingsValue);
   $('.js-listOfBookmarks').html('');
-  api.getAllBookmarks()
-    .then(res => {
-      const filteredItems = res.filter(item => item.rating >= filterRatingsValue);
-      filteredItems.forEach(item => createBookmarkListHTML(item));
-    })
-    .catch(error => {
-      store.defineErrorMessage(error);
-      renderErrorMessage();
-    });
+  filteredItems.forEach(item => createBookmarkListHTML(item));
 };
 
 
@@ -154,23 +147,26 @@ It will take the data and make a post call to the API to store the data to the s
 It will also call a function that updates the local store with the value of the data from the server.
 */
 
+
+const makePostToApi = function (newData) {
+  api.postNewBookmarkToServer(newData)
+    .then(res => {
+      store.addItems(res);
+      createBookmarkListHTML(res);
+      filterBookmarkList();
+    }).catch(error => {
+      store.defineErrorMessage(error);
+      renderErrorMessage();
+    });
+};
+
 const handleCreateBookmarkSubmit = function () {
   $('.js-displayCreateBookmarkForm').on('submit', '.js-addNewBookmarkForm', function () {
     event.preventDefault();
     const formElement = $('.js-addNewBookmarkForm')[0];
     const newData = serializeJson(formElement);
     $('.js-displayCreateBookmarkForm').html('');
-    //$('.filterByRating').prop('selectedIndex',0);
-    //store.DATA.filter = 0;
-    api.postNewBookmarkToServer(newData)
-      .then(res => {
-        store.addItems(res);
-        createBookmarkListHTML(res); 
-        filterBookmarkList();
-      }) .catch(error => {
-        store.defineErrorMessage(error);
-        renderErrorMessage();
-      });
+    makePostToApi(newData);
   });
 };
 
@@ -198,18 +194,24 @@ const handleClickToExpandListElement = function () {
 to delete the bookmark from the server. It will then do the same for the local store so that the item is removed from the list
 */
 
+
+const deleteFromServer = function (currentBookmarkId) {
+  api.deleteBookmarkFromServer(currentBookmarkId)
+    .then(() => {
+      store.removeItems(currentBookmarkId);
+      filterBookmarkList();
+    }).catch(error => {
+      store.defineErrorMessage(error);
+      renderErrorMessage();
+    });
+};
+
+
 const handleDeleteBookmarkSubmit = function () {
   $('.js-listOfBookmarks').on('submit', '.js-DeleteButton', function (event) {
     event.preventDefault();
     const currentBookmarkId = $(event.currentTarget).closest('li').attr('id');
-    api.deleteBookmarkFromServer(currentBookmarkId)
-      .then(() => {
-        store.removeItems(currentBookmarkId);
-        render();
-      }) .catch(error => {
-        store.defineErrorMessage(error);
-        renderErrorMessage();
-      });
+    deleteFromServer(currentBookmarkId);
   });
 };
 
