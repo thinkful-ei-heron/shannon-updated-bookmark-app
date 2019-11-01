@@ -16,7 +16,6 @@ const bookmarkApiFetch = function (...request) {
         }
       }
       if(response.status === 204 ) {
-        console.log('here!');
         return null;
       }
       return response.json();
@@ -69,7 +68,6 @@ const postNewBookmarkToServer = function (data) {
 
 //new with API key header::
 const deleteBookmarkFromServer = function (id){
-  console.log(id);
   return bookmarkApiFetch(`${base_url}/${id}`, {
     method: 'DELETE',
     headers: {'Authorization': 'Bearer b38ef67a-061c-46d6-b68f-c256f2772d69'}
