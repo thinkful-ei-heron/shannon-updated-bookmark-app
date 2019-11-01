@@ -1,4 +1,6 @@
-Link to Live Page: https://thinkful-ei-heron.github.io/Shannon-bookmark-app/
+This version of the Bookmark App is connected to the backend bookmark-server that I created and deployed to heroku.
+
+Link to Live Page: https://thinkful-ei-heron.github.io/shannon-updated-bookmark-app/
 
 The following Bookmark App was created by Shannon Lichtenwalter.
 
