@@ -256,6 +256,7 @@ item from the page */
 const deleteFromServer = function (currentBookmarkId) {
   api.deleteBookmarkFromServer(currentBookmarkId)
     .then(() => {
+      console.log('here!' + currentBookmarkId);
       store.removeItems(currentBookmarkId);
       filterBookmarkList();
     }).catch(error => {

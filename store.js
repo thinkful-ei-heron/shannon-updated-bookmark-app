@@ -11,8 +11,11 @@ const addItems = function (data){
 };
 
 const removeItems = function(itemId) {
+  console.log(itemId);
   const currentItem = this.DATA.allBookmarks.find(objects => objects.id === itemId);
+  console.log(currentItem);
   const position = this.DATA.allBookmarks.indexOf(currentItem);
+  console.log(position);
   this.DATA.allBookmarks.splice(position,1);
 };
 
