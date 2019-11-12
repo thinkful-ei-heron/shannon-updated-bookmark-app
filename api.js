@@ -2,7 +2,10 @@
 //attempting to see if this can communicate with my server without changing any current code.
 //With the exception of needing to provide an api key in any request.
 
-const base_url = 'https://fast-castle-08589.herokuapp.com/bookmarks'; 
+//refactored again to connect with heroku instead of local host .
+const base_url = 'https://fast-castle-08589.herokuapp.com/api/bookmarks'; 
+
+//const base_url= 'http://localhost:8000/api/bookmarks';
 
 const bookmarkApiFetch = function (...request) {
   let err;

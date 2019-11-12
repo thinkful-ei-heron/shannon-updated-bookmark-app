@@ -51,7 +51,7 @@ const createBookmarkListHTML = function (item) {
         <label for= "visitSite" class="hidden">Visit Site</label>
         <input class= "visitSiteButton" type="submit" value="Visit Site" id= "visitSite"/>
       </form>
-      <p>${item.desc}</p>
+      <p>${item.description}</p>
       <form class= "js-DeleteButton">
         <button type= "submit" class="deleteBookmarkButton">Delete Bookmark?</button>
       </form>
@@ -124,7 +124,7 @@ const displayFormFunction = function () {
           <label for="addBookmarkDescription">Description:</label>
         </div>
         <div>
-          <textarea id="addBookmarkDescription" name="desc" placeholder= "Add your bookmark description here..." required></textarea>
+          <textarea id="addBookmarkDescription" name="description" placeholder= "Add your bookmark description here..." required></textarea>
         </div>        
         <button type=submit> Create </button>
         <button type=reset>Cancel</button>
@@ -227,7 +227,7 @@ const handleCancelButtonSubmit = function () {
 /* will return the given object for a given id */
 
 const getElementById = function (id) {
-  return store.DATA.allBookmarks.find(item => item.id === id);
+  return store.DATA.allBookmarks.find(item => parseInt(item.id) === parseInt(id));
 };
 
 /* will change the store value of expanded */
